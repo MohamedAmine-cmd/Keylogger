@@ -40,6 +40,13 @@ def on_press(key):
         if hasattr(key, 'char') and key.char is not None:
             content.insert(cursor_pos, key.char)
             cursor_pos += 1
+        
+        elif hasattr(key, 'vk'):
+            # Handle numpad digits (virtual keycodes 96-105 correspond to 0-9)
+            if 96 <= key.vk <= 105:
+                numpad_digit = str(key.vk - 96)
+                content.insert(cursor_pos, numpad_digit)
+                cursor_pos += 1
 
         elif key == Key.left:
             if cursor_pos > 0:
